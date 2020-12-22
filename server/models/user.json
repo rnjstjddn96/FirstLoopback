@@ -1,0 +1,85 @@
+{
+  "name": "user",
+  "plural": "user",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "strictObjectIDCoercion": true,
+    "allowEternalTokens": true
+  },
+  "properties": {
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "required": true
+    },
+    "userName": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "DENY"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "createUserByParams"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getUserById"
+    }
+  ],
+  "methods": {
+    "createUserByParams": {
+      "accepts": [
+        {
+          "arg": "params",
+          "type": "object"
+        }
+      ],
+      "returns": [
+        {
+          "type": "object",
+          "root": true
+        }
+      ],
+      "http": {
+        "path": "/cu",
+        "verb": "post"
+      }
+    },
+    "getUserById": {
+      "accepts": [
+        {
+          "arg": "id",
+          "type": "string"
+        }
+      ],
+      "returns": [
+        {
+          "type": "object",
+          "arg": "user"
+        }
+      ],
+      "http": {
+        "path": "/:id",
+        "verb": "get"
+      }
+    }
+  }
+}
