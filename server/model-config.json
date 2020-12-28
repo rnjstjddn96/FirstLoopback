@@ -13,35 +13,37 @@
       "./mixins"
     ]
   },
-  "AccessToken": {
-    "dataSource": "db",
+  "accessToken": {
+    "dataSource": "mongoDs",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "mongoDs",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "mongoDs",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "mongoDs",
     "public": false
   },
   "user": {
-    "dataSource": "db",
+    "dataSource": "mongoDs",
     "public": true,
     "options": {
       "emailVerificationRequired": true,
       "remoting": {
         "sharedMethods": {
           "*": false,
+          "login": true,
           "createUserByParams": true,
-          "getUserById": true
+          "me": true,
+          "updateUser": true
         }
       }
     }

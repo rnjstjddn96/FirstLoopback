@@ -23,7 +23,16 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "accessToken",
+      "foreignKey": "userId",
+      "options": {
+        "disableInclude": true
+      }
+    }
+  },
   "acls": [
     {
       "accessType": "*",
@@ -39,9 +48,15 @@
     },
     {
       "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "me"
+    },
+    {
+      "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW",
-      "property": "getUserById"
+      "property": "updateUser"
     }
   ],
   "methods": {
@@ -63,11 +78,36 @@
         "verb": "post"
       }
     },
-    "getUserById": {
+    "me": {
+      "accepts": [
+        {
+          "arg": "req",
+          "type": "object",
+          "http": {
+            "source": "req"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "type": "object",
+          "root": true
+        }
+      ],
+      "http": {
+        "path": "/me",
+        "verb": "get"
+      }
+    },
+    "updateUser": {
       "accepts": [
         {
           "arg": "id",
           "type": "string"
+        },
+        {
+          "arg": "param",
+          "type": "object"
         }
       ],
       "returns": [
@@ -77,8 +117,8 @@
         }
       ],
       "http": {
-        "path": "/:id",
-        "verb": "get"
+        "path": "/updateUser/:id",
+        "verb": "put"
       }
     }
   }

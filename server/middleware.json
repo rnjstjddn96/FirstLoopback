@@ -1,14 +1,21 @@
 {
   "initial:before": {
-    "loopback#favicon": {}
   },
   "initial": {
+    "./middleware/tracker": {},
     "compression": {},
+    "cors": {
+      "params": {
+        "origin": true,
+        "credentials": true,
+        "maxAge": 86400
+      }
+    },
     "helmet#xssFilter": {},
     "helmet#frameguard": {
-      "params": {
-        "action": "deny"
-      }
+      "params": [
+        "deny"
+      ]
     },
     "helmet#hsts": {
       "params": {
@@ -21,30 +28,42 @@
     "helmet#noSniff": {},
     "helmet#noCache": {
       "enabled": false
-    },
-    "cors": {
-      "params": {
-        "origin": true,
-        "credentials": true,
-        "maxAge": 86400
-      }
     }
   },
   "session": {},
   "auth": {},
-  "parse": {},
+  "parse": {
+    "body-parser#json": {
+      "params": {
+        "limit": "50mb"
+      }
+    },
+    "body-parser#urlencoded": {
+      "params": {
+        "limit": "50mb",
+        "extended": true
+      }
+    }
+  },
   "routes": {
+    "./middleware/checker": {},
     "loopback#rest": {
       "paths": [
         "${restApiRoot}"
       ]
     }
   },
-  "files": {},
+  "files": {
+  },
   "final": {
-    "loopback#urlNotFound": {}
   },
   "final:after": {
-    "strong-error-handler": {}
+    "./middleware/custom-error": {},
+    "strong-error-handler": {
+      "params": {
+        "debug": true,
+        "log": true
+      }
+    }
   }
 }
