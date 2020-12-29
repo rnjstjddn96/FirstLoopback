@@ -40,10 +40,26 @@
       "remoting": {
         "sharedMethods": {
           "*": false,
+          "create": true,
           "login": true,
           "createUserByParams": true,
           "me": true,
           "updateUser": true
+        }
+      }
+    }
+  },
+  "address": {
+    "dataSource": "mongoDs",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "createAddressByUser": true,
+          "findAll": true,
+          "me": true,
+          "updateById": true
         }
       }
     }

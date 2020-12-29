@@ -2,6 +2,7 @@
 //ES6 문법 파일임을 명시
 
 const CustomUtils = require('../utils')
+const logger = require('../../server/logger').slog;
 
 module.exports = function(User) {
 	const Utils = new CustomUtils()
@@ -20,9 +21,11 @@ module.exports = function(User) {
 	}
 
 	User.me = (req,cb) => {
+		logger.info('여기가 프로필을 요청하는 API')
 		const _user = req.userInfo
 		delete _user.password
 
+		logger.info('response:', _user)
 		return cb(null, _user)
 	}
 
