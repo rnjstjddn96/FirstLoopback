@@ -59,7 +59,9 @@
           "createAddressByUser": true,
           "findAll": true,
           "me": true,
-          "updateById": true
+          "updateById": true,
+          "deleteById": true,
+          "deleteAddress": true
         }
       }
     }

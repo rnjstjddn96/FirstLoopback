@@ -50,6 +50,7 @@ module.exports = function(Address) {
 			})
 	}
 
+//	1. 인스턴스 메소드를 통한 삭제
 	Address.deleteById = (id, req, cb) => {
 		Address.findOne({
 			where: {
@@ -73,6 +74,22 @@ module.exports = function(Address) {
 		})
 	}
 
+//	2. 클래스 메소드를 통한 삭제
+	Address.deleteAddress = (id, req, cb) => {
+		Address.destroyAll({
+			and: [
+				{ id: id },
+				{ userId: req.userInfo.id.toString() }
+			]
+		})
+		.then(result => {
+			cb(null, result)
+		})
+		.catch(error => {
+			cb(error)
+		})
+	}	
+
 	Address.updateById = (id, data, req, cb) => {
 		Address.updateAll({id: id}, {...data})
 		.then(result => {
@@ -82,4 +99,5 @@ module.exports = function(Address) {
 			return cb(error)
 		})
 	}
+
 };
