@@ -60,7 +60,6 @@
           "findAll": true,
           "me": true,
           "updateById": true,
-          "deleteById": true,
           "deleteAddress": true
         }
       }

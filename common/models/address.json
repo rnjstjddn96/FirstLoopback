@@ -67,12 +67,6 @@
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "deleteById"
-    },
-    {
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
       "property": "deleteAddress"
     }
   ],
@@ -181,31 +175,6 @@
         "verb": "put"
       }
     },
-    "deleteById": {
-      "accepts": [
-        {
-          "arg": "id",
-          "type": "string"
-        },
-        {
-          "arg": "req",
-          "type": "object",
-          "http": {
-            "source": "req"
-          }
-        }
-      ],
-      "returns": [
-        {
-          "type": "object",
-          "root": true
-        }
-      ],
-      "http": {
-        "path": "/:id",
-        "verb": "delete"
-      }
-    },
     "deleteAddress": {
       "accepts": [
         {
@@ -227,7 +196,7 @@
         }
       ],
       "http": {
-        "path": "/byClassMethod/:id",
+        "path": "/:id",
         "verb": "delete"
       }
     }
